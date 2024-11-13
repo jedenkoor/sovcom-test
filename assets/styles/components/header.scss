@@ -1,0 +1,396 @@
+.header {
+  position: relative;
+  padding: 1.7rem 0;
+  background: #131417;
+  box-shadow: 0 0.4rem 0.4rem 0 rgba(19, 20, 23, 0.40);
+  @include respond-to($pb) {
+    position: fixed;
+    width: 100%;
+  }
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__logo {
+    display: flex;
+    svg {
+      width: 4.6rem;
+      height: auto;
+    }
+  }
+  &__nav {
+    margin-left: 6.2rem;
+    @include respond-to($tb) {
+      margin-left: 0;
+    }
+    @include respond-to($pb) {
+      position: fixed;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding-top: 8rem;
+    }
+    &--active {
+      .header {
+        &__overlay {
+          opacity: 1;
+          visibility: visible;
+          transition: opacity 0.3s, visibility 0s 0s;
+        }
+        &__menu {
+          transform: none;
+        }
+      }
+    }
+  }
+  &__overlay {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background: rgba(19, 20, 23, 0.50);
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0s 0.3s;
+    @include respond-to($pb) {
+      display: flex;
+    }
+  }
+  &__menu {
+    display: flex;
+    align-items: center;
+    padding-left: 0;
+    list-style: none;
+    @include respond-to($pb) {
+      position: absolute;
+      right: 0;
+      transform: translateX(100%);
+      width: 37.4rem;
+      height: calc(100% - 8rem);
+      flex-direction: column;
+      align-items: stretch;
+      background: #131417;
+      box-shadow: -4px 0 4px 0 rgba(0, 0, 0, 0.25);
+      overflow-y: auto;
+      overflow-x: hidden;
+      transition: transform 0.3s;
+    }
+    @include respond-to($ps) {
+      width: 100%
+    }
+  }
+  &-menu {
+    &__item {
+      position: relative;
+      @include respond-to($pb) {
+        background-color: #252830;
+      }
+      &:not(:last-child) {
+        margin-right: 4rem;
+        @include respond-to($tb) {
+          margin-right: 2rem;
+        }
+        @include respond-to($pb) {
+          margin-right: 0;
+          border-bottom: 0.1rem solid #131417;
+        }
+      }
+      &--sublist {
+        @media screen and (min-width: 769px) {
+          &:has(:focus-visible),
+          &:has(:hover) {
+            & > .header-menu {
+              &__link {
+                span {
+                  &:before {
+                    transform: translateY(-0.3rem) scale(-1);
+                  }
+                }
+              }
+              &__wrap {
+                opacity: 1;
+                visibility: visible;
+                transition: opacity 0.3s, visibility 0s 0s;
+              }
+            }
+          }
+        }
+        & > .header-menu {
+          &__link {
+            span {
+              position: relative;
+              display: flex;
+              align-items: center;
+              &:before {
+                content: '';
+                position: absolute;
+                right: -1.7rem;
+                transform: translateY(0.3rem);
+                border-top: 0.6rem solid #F2994A;
+                border-right: 0.4rem solid transparent;
+                border-bottom: 0.6rem solid transparent;
+                border-left: 0.4rem solid transparent;
+                transition: transform 0.2s;
+              }
+            }
+          }
+          &__wrap {
+            top: 100%;
+            left: 0;
+            padding-top: 2rem;
+            @include respond-to($pb) {
+              padding-top: 0;
+            }
+            &:before {
+              top: -0.3rem;
+              left: 4.7rem;
+              transform: translateY(-0.3rem);
+              border-top: 1.4rem solid transparent;
+              border-right: 1.4rem solid transparent;
+              border-bottom: 1.4rem solid #252830;
+              border-left: 1.4rem solid transparent;
+              @include respond-to($pb) {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+    &__link {
+      display: flex;
+      padding: 0.8rem 1.8rem;
+      font-size: 1.8rem;
+      line-height: 1.33;
+      @media screen and (min-width: 769px) {
+        &:focus-visible,
+        &:hover {
+          color: #EB5757;
+        }
+      }
+      @include respond-to($ts) {
+        padding: 0.8rem;
+        font-size: 1.4rem;
+      }
+      @include respond-to($pb) {
+        width: 100%;
+        padding: 2rem;
+        font-size: 1.8rem;
+        transition: background-color 0.2s;
+      }
+      &.--active {
+        @include respond-to($pb) {
+          background-color: #131417;
+          span:before {
+            transform: translateY(-0.3rem) scale(-1);
+          }
+        }
+      }
+    }
+    &__wrap {
+      position: absolute;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0s 0.3s;
+      @include respond-to($pb) {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        display: none;
+      }
+      &--opened {
+        display: block;
+      }
+      &:before {
+        content: '';
+        position: absolute;
+      }
+    }
+    &__sublist {
+      position: relative;
+      max-width: 32rem;
+      padding-left: 0;
+      list-style: none;
+      @include respond-to($pb) {
+        max-width: none;
+      }
+    }
+    &__subitem {
+      &:not(:last-child) {
+        border-bottom: 0.1rem solid #4F5158;
+        @include respond-to($pb) {
+          border-color: #131417;
+        }
+      }
+      &:first-child {
+        @include respond-to($pb) {
+          border-top: 0.1rem solid #131417;
+        }
+      }
+      &:first-child {
+        & > .header-menu__sublink {
+          border-radius: 0.8rem 0.8rem 0 0;
+        }
+      }
+      &:last-child {
+        & > .header-menu__sublink {
+          border-radius: 0 0 0.8rem 0.8rem;
+        }
+      }
+      &--sublist {
+        @media screen and (min-width: 769px) {
+          &:has(:focus-visible),
+          &:has(:hover) {
+            & > .header-menu {
+              &__sublink {
+                span {
+                  &:before {
+                    transform: translate(0.6rem, -50%) scale(-1);
+                  }
+                }
+              }
+
+              &__wrap {
+                opacity: 1;
+                visibility: visible;
+                transition: opacity 0.3s, visibility 0s 0s;
+              }
+            }
+          }
+        }
+        & > .header-menu {
+          &__sublink {
+            position: relative;
+            padding-right: 4rem;
+            @include respond-to($pb) {
+              padding-right: 3rem;
+            }
+            span {
+              &:before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                right: 1.9rem;
+                border-top: 0.4rem solid transparent;
+                border-right: 0.6rem solid #F2994A;
+                border-bottom: 0.4rem solid transparent;
+                border-left: 0.6rem solid transparent;
+                transition: transform 0.2s;
+                @include respond-to($pb) {
+                  transform: translateY(-0.3rem);
+                  border-top: 0.6rem solid #F2994A;
+                  border-right: 0.4rem solid transparent;
+                  border-bottom: 0.6rem solid transparent;
+                  border-left: 0.4rem solid transparent;
+                }
+              }
+            }
+          }
+          &__wrap {
+            bottom: 0;
+            left: 100%;
+            padding-left: 2rem;
+            @include respond-to($pb) {
+              padding-left: 0;
+            }
+            &:before {
+              bottom: 0.7rem;
+              left: -0.6rem;
+              transform: translateY(-0.3rem);
+              border-top: 1.4rem solid transparent;
+              border-right: 1.4rem solid #252830;
+              border-bottom: 1.4rem solid transparent;
+              border-left: 1.4rem solid transparent;
+              @include respond-to($pb) {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+    &__sublink {
+      width: 100%;
+      display: inline-flex;
+      padding: 0.8rem 1.8rem;
+      background-color: #252830;
+      transition: background-color 0.2s;
+      @media screen and (min-width: 769px) {
+        &:focus-visible,
+        &:hover {
+          background-color: #131417;
+        }
+      }
+      @include respond-to($pb) {
+        padding: 2rem;
+      }
+      @include respond-to($pb) {
+        width: 100%;
+        padding: 2rem;
+        transition: background-color 0.2s;
+      }
+      &.--active {
+        @include respond-to($pb) {
+          background-color: #131417;
+          span:before {
+            transform: translateY(-1rem) scale(-1);
+          }
+        }
+      }
+      span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+  &__phone {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem;
+    font-size: 1.8rem;
+    font-weight: 500;
+    line-height: 1.33;
+    @media screen and (min-width: 769px) {
+      &:focus-visible,
+      &:hover {
+        color: #EB5757;
+      }
+    }
+    @include respond-to($ts) {
+      padding: 0;
+      font-size: 1.6rem;
+    }
+    @include respond-to($pb) {
+      margin-right: 2.4rem;
+      font-size: 1.8rem;
+    }
+    @include respond-to($ps) {
+      font-size: 0;
+      margin-right: 2rem;
+      margin-left: auto;
+    }
+    svg {
+      width: 2.4rem;
+      height: auto;
+      margin-right: 1rem;
+      @include respond-to($ps) {
+        margin-right: 0;
+      }
+    }
+  }
+  &__burger {
+    display: none;
+    @include respond-to($pb) {
+      display: flex;
+    }
+  }
+}
